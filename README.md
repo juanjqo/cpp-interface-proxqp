@@ -1,5 +1,5 @@
 # cpp-interface-proxqp![](https://img.shields.io/badge/status-experimental-critical)
-![](https://img.shields.io/badge/Tests-developer%20workflow-orange)![](https://img.shields.io/badge/Ubuntu%2022.04%20LTS%20(x64)-Unknow-yellow)![](https://img.shields.io/badge/MacOS%2013.1%20(ARM64)%20-passing-passing)
+![](https://img.shields.io/badge/Tests-developer%20workflow-orange)![](https://img.shields.io/badge/Ubuntu%2022.04%20LTS%20(x64)-Unknown-yellow)![](https://img.shields.io/badge/MacOS%2013.1%20(ARM64)%20-passing-passing)
 
 Interface between DQ_Robotics and [proxqp](https://github.com/Simple-Robotics/proxsuite)
 
