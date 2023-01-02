@@ -5,8 +5,8 @@ Maintainer: Murilo Marinho <murilo@g.ecc.u-tokyo.ac.jp>
 Build-Depends: cmake
 Homepage: https://dqrobotics.github.io/
 
-Package: libdqrobotics-interface-osqp
+Package: libdqrobotics-interface-proxqp
 Architecture: any
 Depends: libdqrobotics
-Description: DQ Robotics interface with osqp
- The dual quaternion robotics library interface with osqp.
+Description: DQ Robotics interface with proxqp
+ The dual quaternion robotics library interface with proxqp.
