@@ -41,7 +41,7 @@ make -j16
 sudo make install
 ```
 
-Example of use:
+### Example of use:
 
 ```CPP
 #include <memory>
@@ -68,7 +68,7 @@ auto u_proxqp = controller_proxqp.compute_setpoint_control_signal(q, vec4(xdesir
 std::cout<<"u_proxqp:    "<<u_proxqp.transpose()<<std::endl;
 ```
 
-Link the proxqp library:
+### Link the proxqp library:
 
 ```cmake
 add_executable(my_example my_example.cpp)
