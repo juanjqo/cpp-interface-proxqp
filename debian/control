@@ -1,0 +1,12 @@
+Source: libdqrobotics-interface-proxqp
+Section: devel
+Priority: optional
+Maintainer: Murilo Marinho <murilo@g.ecc.u-tokyo.ac.jp>
+Build-Depends: cmake
+Homepage: https://dqrobotics.github.io/
+
+Package: libdqrobotics-interface-osqp
+Architecture: any
+Depends: libdqrobotics
+Description: DQ Robotics interface with osqp
+ The dual quaternion robotics library interface with osqp.
