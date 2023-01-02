@@ -131,7 +131,10 @@ protected:
 
 
 public:
-    DQ_PROXQPSolver();
+    DQ_PROXQPSolver():SOLVE_FIRST_TIME_(true)
+    {
+
+    }
    ~DQ_PROXQPSolver()=default;
 
     /**
