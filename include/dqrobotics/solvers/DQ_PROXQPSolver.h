@@ -105,7 +105,7 @@ protected:
      *        By default its value is set to 1.e-1.
      * @return the optimal x
      */
-    VectorXd _solve_prox_quadratic_program(const MatrixXd& H, const VectorXd& f, const MatrixXd& Aeq, const VectorXd&beq,
+    VectorXd _solve_prox_quadratic_program(const MatrixXd& H, const VectorXd& f, const MatrixXd& Aeq, const VectorXd& beq,
                                            const MatrixXd& A, const VectorXd&  b, const bool& compute_preconditioner,
                                            const double& rho, const double& mu_eq, const double& mu_in)
     {
