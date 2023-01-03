@@ -59,8 +59,7 @@ protected:
     {
         EQUALITY_CONSTRAINT_SIZE_ = EQUALITY_CONSTRAINT_SIZE;
         INEQUALITY_CONSTRAINT_SIZE_ = INEQUALITY_CONSTRAINT_SIZE;
-        proxsuite::proxqp::dense::QP<double> qp(PROBLEM_SIZE, EQUALITY_CONSTRAINT_SIZE, INEQUALITY_CONSTRAINT_SIZE); // create the QP object
-        qp_ = std::make_shared<proxsuite::proxqp::dense::QP<double>>(qp);
+        qp_ = std::make_shared<proxsuite::proxqp::dense::QP<double>>(PROBLEM_SIZE, EQUALITY_CONSTRAINT_SIZE, INEQUALITY_CONSTRAINT_SIZE);
 
         /**
          * The solver expects constraints in the form
