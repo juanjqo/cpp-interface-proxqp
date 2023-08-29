@@ -30,6 +30,9 @@ sudo make install
 
 ## 2. Build the cpp-interface-proxqp from sources (Tested in MacOS ARM64 and Ubuntu 20.04LTS 64Bits)
 
+
+### MacOS
+
 ```shell
 cd ~/Downloads
 git clone https://github.com/juanjqo/cpp-interface-proxqp.git
@@ -40,6 +43,18 @@ cmake ..
 make -j16
 sudo make install
 ```
+
+### Ubuntu
+```shell
+  chmod +x debian/rules
+  fakeroot debian/rules clean
+  fakeroot debian/rules build
+  fakeroot debian/rules binary
+  cd ..
+  sudo apt install ./*.deb
+```
+
+
 
 ### Example of use:
 
