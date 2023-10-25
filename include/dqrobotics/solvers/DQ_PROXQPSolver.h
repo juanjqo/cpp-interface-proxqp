@@ -27,6 +27,7 @@ Contributors:
 #include <vector>
 #include <iostream>
 #include <eigen3/Eigen/Dense>
+#include <memory>
 
 
 using namespace Eigen;
