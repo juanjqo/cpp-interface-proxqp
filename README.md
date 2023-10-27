@@ -20,7 +20,7 @@ cd ~/Downloads
 git clone https://github.com/Simple-Robotics/proxsuite.git --recursive
 cd proxsuite
 mkdir build && cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF
+cmake .. -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF -DBUILD_WITH_VECTORIZATION_SUPPORT=OFF
 make
 sudo make install
 ```
