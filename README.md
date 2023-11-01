@@ -72,7 +72,7 @@ using namespace Eigen;
 using namespace DQ_robotics;
 
 auto robot = std::make_shared<DQ_SerialManipulatorMDH>(FrankaEmikaPandaRobot::kinematics());
-auto proxqp_solver = std::make_shared<DQ_PROXQPSolver>(DQ_PROXQPSolver());
+auto proxqp_solver = std::make_shared<DQ_PROXQPSolver>();
 
 DQ_ClassicQPController controller_proxqp(robot, proxqp_solver);
 controller_proxqp.set_gain(0.5);
@@ -90,7 +90,7 @@ std::cout<<"u_proxqp:    "<<u_proxqp.transpose()<<std::endl;
 
 ```cmake
 add_executable(my_example my_example.cpp)
-target_link_libraries(my_example PUBLIC proxsuite::proxsuite
-                      pthread
+target_link_libraries(my_example
+                      Threads::Threads
                       dqrobotics)
 ```
