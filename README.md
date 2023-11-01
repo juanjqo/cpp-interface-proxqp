@@ -87,6 +87,10 @@ int main(){
 }
 ```
 
+```shell
+u_proxqp:       0.107115    0.147883    0.107115    0.029608    0.107115   -0.261227 2.66176e-17
+```
+
 #### Using the DQ_PROXQPSolver interface
 
 ```cpp
