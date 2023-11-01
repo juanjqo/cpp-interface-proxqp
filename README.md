@@ -7,7 +7,13 @@ Interface between DQ_Robotics and [proxqp](https://github.com/Simple-Robotics/pr
 
 Check the official PROXSuite [instructions](https://github.com/Simple-Robotics/proxsuite/blob/main/doc/5-installation.md) 
 
-Summary (building from sources):
+Summary (homebrew for MacOS)
+
+```shell
+brew install proxsuite
+```
+
+Summary (building from sources - Ubuntu):
 
 ```shell
 cd ~/Downloads
@@ -23,10 +29,6 @@ sudo make install
 
 
 ### MacOS
-
-```shell
-brew install proxsuite
-```
 
 ```shell
 cd ~/Downloads
