@@ -68,19 +68,21 @@ sudo make install
 using namespace Eigen;
 using namespace DQ_robotics;
 
-auto robot = std::make_shared<DQ_SerialManipulatorMDH>(FrankaEmikaPandaRobot::kinematics());
-auto proxqp_solver = std::make_shared<DQ_PROXQPSolver>();
+int main(){
+    auto robot = std::make_shared<DQ_SerialManipulatorMDH>(FrankaEmikaPandaRobot::kinematics());
+    auto proxqp_solver = std::make_shared<DQ_PROXQPSolver>();
 
-DQ_ClassicQPController controller_proxqp(robot, proxqp_solver);
-controller_proxqp.set_gain(0.5);
-controller_proxqp.set_damping(0.1);
-controller_proxqp.set_control_objective(DQ_robotics::Translation);
-controller_proxqp.set_stability_threshold(0.001);
+    DQ_ClassicQPController controller_proxqp(robot, proxqp_solver);
+    controller_proxqp.set_gain(0.5);
+    controller_proxqp.set_damping(0.1);
+    controller_proxqp.set_control_objective(DQ_robotics::Translation);
+    controller_proxqp.set_stability_threshold(0.001);
 
-DQ xdesired = 1 + E_*0.5*DQ(0, 0.2, 0.3, 0.3);
-VectorXd q = VectorXd::Zero(7);
-auto u_proxqp = controller_proxqp.compute_setpoint_control_signal(q, vec4(xdesired.translation()));
-std::cout<<"u_proxqp:    "<<u_proxqp.transpose()<<std::endl;
+    DQ xdesired = 1 + E_*0.5*DQ(0, 0.2, 0.3, 0.3);
+    VectorXd q = VectorXd::Zero(7);
+    auto u_proxqp = controller_proxqp.compute_setpoint_control_signal(q, vec4(xdesired.translation()));
+    std::cout<<"u_proxqp:    "<<u_proxqp.transpose()<<std::endl;
+}
 ```
 
 ### CMakeLists.txt:
