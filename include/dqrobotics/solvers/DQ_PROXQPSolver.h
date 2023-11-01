@@ -43,20 +43,20 @@ protected:
     bool SOLVE_FIRST_TIME_;
     int EQUALITY_CONSTRAINT_SIZE_;
     int INEQUALITY_CONSTRAINT_SIZE_;
-    double INFINITY_ = 1e-30;
+    double INFINITY_ = 1e30;
     VectorXd l_;
 
     double rho_ = 1.e-6;   // The minimal value it can take is minimum: 1.e-7. By default its value is set to 1.e-6.
-    double mu_eq_ = 1.e-3; // The minimal value it can take is 1.e-9. By default its value is set to 1.e-3.
-    double mu_in_ = 1.e-1;  // The minimal value it can take is 1.e-9. By default its value is set to 1.e-1.
+    double mu_eq_ = 1.e-9; // The minimal value it can take is 1.e-9. By default its value is set to 1.e-3.
+    double mu_in_ = 1.e-9;  // The minimal value it can take is 1.e-9. By default its value is set to 1.e-1.
 
     /**
-     * @brief _update_problem
+     * @brief _initialize_problem
      * @param PROBLEM_SIZE
      * @param EQUALITY_CONSTRAINT_SIZE
      * @param INEQUALITY_CONSTRAINT_SIZE
      */
-    void _update_problem(const int& PROBLEM_SIZE, const int& EQUALITY_CONSTRAINT_SIZE, const int& INEQUALITY_CONSTRAINT_SIZE)
+    void _initialize_problem(const int& PROBLEM_SIZE, const int& EQUALITY_CONSTRAINT_SIZE, const int& INEQUALITY_CONSTRAINT_SIZE)
     {
         EQUALITY_CONSTRAINT_SIZE_ = EQUALITY_CONSTRAINT_SIZE;
         INEQUALITY_CONSTRAINT_SIZE_ = INEQUALITY_CONSTRAINT_SIZE;
@@ -113,19 +113,22 @@ protected:
         const int PROBLEM_SIZE = H.rows();
         const int INEQUALITY_CONSTRAINT_SIZE = b.size();
         const int EQUALITY_CONSTRAINT_SIZE = beq.size();
-        if (SOLVE_FIRST_TIME_ == true)
-        {
-            _update_problem(PROBLEM_SIZE, EQUALITY_CONSTRAINT_SIZE, INEQUALITY_CONSTRAINT_SIZE);
-        }
-        else if (EQUALITY_CONSTRAINT_SIZE_ != EQUALITY_CONSTRAINT_SIZE || INEQUALITY_CONSTRAINT_SIZE_ != INEQUALITY_CONSTRAINT_SIZE)
-        {
-            _update_problem(PROBLEM_SIZE, EQUALITY_CONSTRAINT_SIZE, INEQUALITY_CONSTRAINT_SIZE);
-        }
+    if (SOLVE_FIRST_TIME_ == true)
+    {
+        _initialize_problem(PROBLEM_SIZE, EQUALITY_CONSTRAINT_SIZE, INEQUALITY_CONSTRAINT_SIZE);
         qp_->init(H,f,Aeq,beq,A,l_,b, compute_preconditioner, rho, mu_eq, mu_in); // initialize the model
-        qp_->solve();
-        qp_->settings.initial_guess =  proxsuite::proxqp::InitialGuessStatus::WARM_START_WITH_PREVIOUS_RESULT;
-        SOLVE_FIRST_TIME_ = false;
-        return qp_->results.x;
+    }
+    else if (EQUALITY_CONSTRAINT_SIZE_ != EQUALITY_CONSTRAINT_SIZE || INEQUALITY_CONSTRAINT_SIZE_ != INEQUALITY_CONSTRAINT_SIZE)
+    {
+        qp_->update(H,f,Aeq,beq,A,l_,b, compute_preconditioner, rho, mu_eq, mu_in); // initialize the model
+    }
+    qp_->init(H,f,Aeq,beq,A,l_,b, compute_preconditioner, rho, mu_eq, mu_in); // initialize the model
+    qp_->settings.eps_abs = DQ_threshold;// set accuracy threshold to 1e-12
+    qp_->settings.verbose = false;
+    qp_->solve();
+    qp_->settings.initial_guess =  proxsuite::proxqp::InitialGuessStatus::WARM_START_WITH_PREVIOUS_RESULT;
+    SOLVE_FIRST_TIME_ = false;
+    return qp_->results.x;
     }
 
 
