@@ -46,6 +46,9 @@ sudo make install
 
 ### Ubuntu
 ```shell
+  cd ~/Downloads
+  git clone https://github.com/juanjqo/cpp-interface-proxqp.git
+  cd cpp-interface-proxqp
   chmod +x debian/rules
   fakeroot debian/rules clean
   fakeroot debian/rules build
