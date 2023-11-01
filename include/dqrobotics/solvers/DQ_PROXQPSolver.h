@@ -39,7 +39,7 @@ class DQ_PROXQPSolver: public DQ_QuadraticProgrammingSolver
 
 protected:
 
-    std::shared_ptr<proxsuite::proxqp::dense::QP<double>> qp_;
+    std::unique_ptr<proxsuite::proxqp::dense::QP<double>> qp_;
     bool SOLVE_FIRST_TIME_;
     int EQUALITY_CONSTRAINT_SIZE_;
     int INEQUALITY_CONSTRAINT_SIZE_;
@@ -60,8 +60,8 @@ protected:
     {
         EQUALITY_CONSTRAINT_SIZE_ = EQUALITY_CONSTRAINT_SIZE;
         INEQUALITY_CONSTRAINT_SIZE_ = INEQUALITY_CONSTRAINT_SIZE;
-        qp_ = std::make_shared<proxsuite::proxqp::dense::QP<double>>(PROBLEM_SIZE, EQUALITY_CONSTRAINT_SIZE, INEQUALITY_CONSTRAINT_SIZE);
-
+        qp_ = std::unique_ptr<proxsuite::proxqp::dense::QP<double>>(new proxsuite::proxqp::dense::QP<double>(PROBLEM_SIZE, EQUALITY_CONSTRAINT_SIZE, INEQUALITY_CONSTRAINT_SIZE));
+        //qp_ = std::make_unique<proxsuite::proxqp::dense::QP<double>>(PROBLEM_SIZE, EQUALITY_CONSTRAINT_SIZE, INEQUALITY_CONSTRAINT_SIZE); For >= C++14
         /**
          * The solver expects constraints in the form
          *     l <= Ax <= b.
