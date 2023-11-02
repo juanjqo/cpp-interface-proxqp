@@ -47,8 +47,13 @@ protected:
     VectorXd l_;
 
     double rho_ = 1.e-6;   // The minimal value it can take is minimum: 1.e-7. By default its value is set to 1.e-6.
-    double mu_eq_ = 1.e-9; // The minimal value it can take is 1.e-9. By default its value is set to 1.e-3.
-    double mu_in_ = 1.e-9;  // The minimal value it can take is 1.e-9. By default its value is set to 1.e-1.
+    double mu_eq_ = 1.e-3; // The minimal value it can take is 1.e-9. By default its value is set to 1.e-3.
+    double mu_in_ = 1.e-1;  // The minimal value it can take is 1.e-9. By default its value is set to 1.e-1.
+    double mu_min_eq_ = DQ_threshold; // Minimal authorized value for mu_eq. 
+    double mu_min_in_ = DQ_threshold; // Minimal authorized value for mu_in. 
+    double eps_abs_ = DQ_threshold; //Asbolute stopping criterion of the solver. Default value = 1.E-5.
+    bool verbose_ = false;  // 	If set to true, the solver prints information at each loop. 
+    bool compute_preconditioner_ = true; //If set to true, the preconditioner will be derived with the init method. 
 
     /**
      * @brief _initialize_problem
@@ -123,8 +128,10 @@ protected:
         qp_->update(H,f,Aeq,beq,A,l_,b, compute_preconditioner, rho, mu_eq, mu_in); // initialize the model
     }
     qp_->init(H,f,Aeq,beq,A,l_,b, compute_preconditioner, rho, mu_eq, mu_in); // initialize the model
-    qp_->settings.eps_abs = DQ_threshold;// set accuracy threshold to 1e-12
-    qp_->settings.verbose = false;
+    qp_->settings.eps_abs = eps_abs_;     // set accuracy threshold 
+    qp_->settings.mu_min_eq = mu_min_eq_; // set minimal authorized value for mu_eq.
+    qp_->settings.mu_min_eq = mu_min_in_; // set Minimal authorized value for mu_in.
+    qp_->settings.verbose = verbose_;
     qp_->solve();
     qp_->settings.initial_guess =  proxsuite::proxqp::InitialGuessStatus::WARM_START_WITH_PREVIOUS_RESULT;
     SOLVE_FIRST_TIME_ = false;
@@ -179,8 +186,74 @@ public:
 
         //std::cout<<"Sizes flag: "<<INEQUALITY_CONSTRAINT_SIZE<<" , "<<EQUALITY_CONSTRAINT_SIZE<<std::endl;
         ///---------------------------------------------------------------------------------------------------
-        return _solve_prox_quadratic_program(H, f, Aeq, beq, A, b, true, rho_, mu_eq_, mu_in_);
+        return _solve_prox_quadratic_program(H, f, Aeq, beq, A, b, compute_preconditioner_, rho_, mu_eq_, mu_in_);
         }
+
+    /**
+     * @brief Sets the proximal step size. 
+     * 
+     * @param rho the proximal step size wrt primal variable. Reducing its value speed-ups convergence wrt primal variable
+     *        (but increases as well ill-conditioning of sub-problems to solve). The minimal value it can take is 1.e-7.
+     *        By default its value is set to 1.e-6.
+    */
+    void set_proximal_step_size(const double& rho)
+    {
+        rho_ = rho;
+    }  
+
+    /**
+     * @brief Sets the mu_eq proximal step size. 
+     * 
+     * @param mu_eq the proximal step size wrt equality constrained multiplier. Reducing its value speed-ups convergence wrt equality constrained
+     *        variable (but increases as well ill-conditioning of sub-problems to solve). The minimal value it can take is 1.e-9.
+     *        By default its value is set to 1.e-3.
+    */  
+    void set_equality_proximal_step_size(const double& mu_eq)
+    {
+        mu_eq_ = mu_eq;
+    }
+
+    /**
+     * @brief Sets the mu_in proximal step size. 
+     * 
+     * @param mu_in the proximal step size wrt inequality constrained multiplier. Reducing its value speed-ups convergence wrt inequality constrained
+     *        variable (but increases as well ill-conditioning of sub-problems to solve). The minimal value it can take is 1.e-9.
+     *        By default its value is set to 1.e-1
+    */  
+    void set_inequality_proximal_step_size(const double& mu_in)
+    {
+        mu_in_ = mu_in;
+    }
+
+    /**
+     * @brief Sets the absolute stopping criterion
+     * 
+     * @param eps_abs The asbolute stopping criterion of the solver. 
+    */
+    void set_absolute_stopping_criterion(const double& eps_abs)
+    {
+        eps_abs_ = eps_abs;
+    }
+
+    /**
+     * @brief Sets the verbose mode. If set to true, the solver prints information at each loop. 
+     * 
+     * @param verbose The verbose flag.
+    */
+    void set_verbose_mode(const bool& verbose)
+    {
+        verbose_ = verbose;
+    }
+
+    /**
+     * @brief Sets the preconditioner. If set to true, the preconditioner will be derived with the init method.  
+     * 
+     * @param compute_preconditioner The preconditioner flag. 
+    */
+    void set_preconditioner(const bool& compute_preconditioner)
+    {
+        compute_preconditioner_ = compute_preconditioner;
+    }
 };
 }
 
