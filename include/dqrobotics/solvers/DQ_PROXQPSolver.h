@@ -51,7 +51,7 @@ protected:
     double mu_in_ = 1.e-1;  // The minimal value it can take is 1.e-9. By default its value is set to 1.e-1.
     double mu_min_eq_ = DQ_threshold; // Minimal authorized value for mu_eq. 
     double mu_min_in_ = DQ_threshold; // Minimal authorized value for mu_in. 
-    double eps_abs_ = DQ_threshold; //Asbolute stopping criterion of the solver. Default value = 1.E-5.
+    double eps_abs_ = 1.e-5;; //Asbolute stopping criterion of the solver. Default value = 1.E-5.
     bool verbose_ = false;  // 	If set to true, the solver prints information at each loop. 
     bool compute_preconditioner_ = true; //If set to true, the preconditioner will be derived with the init method. 
 
@@ -228,7 +228,7 @@ public:
     /**
      * @brief Sets the absolute stopping criterion
      * 
-     * @param eps_abs The asbolute stopping criterion of the solver. 
+     * @param eps_abs The asbolute stopping criterion of the solver. The default value is 1e-5;
     */
     void set_absolute_stopping_criterion(const double& eps_abs)
     {
