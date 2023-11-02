@@ -55,6 +55,8 @@ protected:
     bool verbose_ = false;  // 	If set to true, the solver prints information at each loop. 
     bool compute_preconditioner_ = true; //If set to true, the preconditioner will be derived with the init method. 
 
+    double run_time_ = 0.0;
+
     /**
      * @brief _initialize_problem
      * @param PROBLEM_SIZE
@@ -135,6 +137,7 @@ protected:
     qp_->solve();
     qp_->settings.initial_guess =  proxsuite::proxqp::InitialGuessStatus::WARM_START_WITH_PREVIOUS_RESULT;
     SOLVE_FIRST_TIME_ = false;
+    run_time_ = qp_->results.info.run_time;
     return qp_->results.x;
     }
 
@@ -253,6 +256,16 @@ public:
     void set_preconditioner(const bool& compute_preconditioner)
     {
         compute_preconditioner_ = compute_preconditioner;
+    }
+
+    /**
+     * @brief Returns the measured solver runtime (setup + solve) used to compute the solution
+     * 
+     * @returns The measured runtime
+    */
+    double get_run_time()
+    {
+        return run_time_;
     }
 };
 }
