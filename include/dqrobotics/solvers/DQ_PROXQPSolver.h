@@ -121,26 +121,31 @@ protected:
         const int PROBLEM_SIZE = H.rows();
         const int INEQUALITY_CONSTRAINT_SIZE = b.size();
         const int EQUALITY_CONSTRAINT_SIZE = beq.size();
-    if (SOLVE_FIRST_TIME_ == true)
-    {
-        _initialize_problem(PROBLEM_SIZE, EQUALITY_CONSTRAINT_SIZE, INEQUALITY_CONSTRAINT_SIZE);
-        qp_->init(H,f,Aeq,beq,A,l_,b, compute_preconditioner, rho, mu_eq, mu_in); // initialize the model
-    }
-    else if (EQUALITY_CONSTRAINT_SIZE_ != EQUALITY_CONSTRAINT_SIZE || INEQUALITY_CONSTRAINT_SIZE_ != INEQUALITY_CONSTRAINT_SIZE)
-    {
-        qp_->update(H,f,Aeq,beq,A,l_,b, compute_preconditioner, rho, mu_eq, mu_in); // initialize the model
-    }
-    qp_->init(H,f,Aeq,beq,A,l_,b, compute_preconditioner, rho, mu_eq, mu_in); // initialize the model
-    qp_->settings.eps_abs = eps_abs_;     // set accuracy threshold 
-    qp_->settings.mu_min_eq = mu_min_eq_; // set minimal authorized value for mu_eq.
-    qp_->settings.mu_min_eq = mu_min_in_; // set Minimal authorized value for mu_in.
-    qp_->settings.verbose = verbose_;
-    qp_->settings.compute_timings = compute_timings_;
-    qp_->solve();
-    qp_->settings.initial_guess =  proxsuite::proxqp::InitialGuessStatus::WARM_START_WITH_PREVIOUS_RESULT;
-    SOLVE_FIRST_TIME_ = false;
-    run_time_ = qp_->results.info.run_time;
-    return qp_->results.x;
+
+
+        MatrixXd H_sym(H.rows(), H.cols());
+        H_sym =MatrixXd(H.selfadjointView<Upper>());
+
+        if (SOLVE_FIRST_TIME_ == true)
+        {
+            _initialize_problem(PROBLEM_SIZE, EQUALITY_CONSTRAINT_SIZE, INEQUALITY_CONSTRAINT_SIZE);
+            qp_->init(H_sym,f,Aeq,beq,A,l_,b, compute_preconditioner, rho, mu_eq, mu_in); // initialize the model
+        }
+        else if (EQUALITY_CONSTRAINT_SIZE_ != EQUALITY_CONSTRAINT_SIZE || INEQUALITY_CONSTRAINT_SIZE_ != INEQUALITY_CONSTRAINT_SIZE)
+        {
+            qp_->update(H_sym,f,Aeq,beq,A,l_,b, compute_preconditioner, rho, mu_eq, mu_in); // initialize the model
+        }
+        qp_->init(H_sym,f,Aeq,beq,A,l_,b, compute_preconditioner, rho, mu_eq, mu_in); // initialize the model
+        qp_->settings.eps_abs = eps_abs_;     // set accuracy threshold
+        qp_->settings.mu_min_eq = mu_min_eq_; // set minimal authorized value for mu_eq.
+        qp_->settings.mu_min_eq = mu_min_in_; // set Minimal authorized value for mu_in.
+        qp_->settings.verbose = verbose_;
+        qp_->settings.compute_timings = compute_timings_;
+        qp_->solve();
+        qp_->settings.initial_guess =  proxsuite::proxqp::InitialGuessStatus::WARM_START_WITH_PREVIOUS_RESULT;
+        SOLVE_FIRST_TIME_ = false;
+        run_time_ = qp_->results.info.run_time;
+        return qp_->results.x;
     }
 
 
