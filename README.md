@@ -36,7 +36,7 @@ make
 sudo make install
 ```
 
-## 2. Build the cpp-interface-proxqp from sources (Tested in MacOS ARM64 and Ubuntu 20.04LTS 64Bits)
+## 2. Build the cpp-interface-proxqp from sources (Tested on MacOS ARM64 and Ubuntu {20.04LTS-64Bits, 22.04LTS-64Bits})
 
 
 ### MacOS
