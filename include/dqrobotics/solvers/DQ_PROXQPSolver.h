@@ -135,7 +135,7 @@ protected:
     qp_->settings.mu_min_eq = mu_min_eq_; // set minimal authorized value for mu_eq.
     qp_->settings.mu_min_eq = mu_min_in_; // set Minimal authorized value for mu_in.
     qp_->settings.verbose = verbose_;
-    qp_->settings.compute_timings = true;
+    qp_->settings.compute_timings = compute_timings_;
     qp_->solve();
     qp_->settings.initial_guess =  proxsuite::proxqp::InitialGuessStatus::WARM_START_WITH_PREVIOUS_RESULT;
     SOLVE_FIRST_TIME_ = false;
