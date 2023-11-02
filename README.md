@@ -62,7 +62,7 @@ sudo make install
   fakeroot debian/rules build
   fakeroot debian/rules binary
   cd ..
-  sudo apt install ./*.deb
+  sudo dpkg -i ./*.deb
 ```
 
 
