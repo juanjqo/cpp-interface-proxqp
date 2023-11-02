@@ -54,6 +54,7 @@ protected:
     double eps_abs_ = 1.e-5; //Asbolute stopping criterion of the solver. Default value = 1.E-5.
     bool verbose_ = false;  // 	If set to true, the solver prints information at each loop. 
     bool compute_preconditioner_ = true; //If set to true, the preconditioner will be derived with the init method. 
+    bool compute_timings_ = false; 
 
     double run_time_ = 0.0;
 
@@ -134,6 +135,7 @@ protected:
     qp_->settings.mu_min_eq = mu_min_eq_; // set minimal authorized value for mu_eq.
     qp_->settings.mu_min_eq = mu_min_in_; // set Minimal authorized value for mu_in.
     qp_->settings.verbose = verbose_;
+    qp_->settings.compute_timings = true;
     qp_->solve();
     qp_->settings.initial_guess =  proxsuite::proxqp::InitialGuessStatus::WARM_START_WITH_PREVIOUS_RESULT;
     SOLVE_FIRST_TIME_ = false;
@@ -265,7 +267,20 @@ public:
     */
     double get_run_time()
     {
+        if (compute_timings_ == false){
+            std::errc<<"You must enable the compute_timmings options. "<<std::endl;
+        }
         return run_time_;
+    }
+
+    /**
+     * @brief Sets the compute_timmings option of the solver.
+     * 
+     * @param flag.
+    */
+    void compute_timmings(const bool& flag)
+    {
+        compute_timings_ = flag;
     }
 };
 }
