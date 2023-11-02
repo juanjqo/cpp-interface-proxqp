@@ -268,7 +268,7 @@ public:
     double get_run_time()
     {
         if (compute_timings_ == false){
-            std::cerr<<"You must enable the compute_timmings options. "<<std::endl;
+            std::cerr<<"You must enable the compute_timmings option to get the runtime. "<<std::endl;
         }
         return run_time_;
     }
