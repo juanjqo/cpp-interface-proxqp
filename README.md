@@ -4,6 +4,16 @@
 
 Interface between DQ_Robotics and [proxqp](https://github.com/Simple-Robotics/proxsuite)
 
+## Prerequisites
+
+- DQ Robotics for C++ (master branch)
+
+  ```shell
+  sudo add-apt-repository ppa:dqrobotics-dev/development
+  sudo apt-get update
+  sudo apt-get install libdqrobotics
+  ```
+
 ## 1. Recommended installation process for proxqp
 
 Check the official PROXSuite [instructions](https://github.com/Simple-Robotics/proxsuite/blob/main/doc/5-installation.md) 
