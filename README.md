@@ -24,7 +24,7 @@ Summary (MacOS using homebrew)
 brew install proxsuite
 ```
 
-Summary (Ubuntu: building from sources):
+Summary (Ubuntu: building from sources with the vectorization support disabled):
 
 ```shell
 cd ~/Downloads
