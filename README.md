@@ -147,8 +147,17 @@ u: -9.84188e-17          0.5  -2.6844e-17
 ### CMakeLists.txt:
 
 ```cmake
-add_executable(my_example my_example.cpp)
+cmake_minimum_required(VERSION 3.5)
+
+project(my_example LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+find_package(Eigen3 REQUIRED)
+include_directories(${EIGEN3_INCLUDE_DIR})
+
+add_executable(my_example main.cpp)
+
 target_link_libraries(my_example
-                      Threads::Threads
                       dqrobotics)
 ```
