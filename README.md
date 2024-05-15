@@ -40,6 +40,20 @@ make
 sudo make install
 ```
 
+Summary (Windows using vcpkg)
+
+If you do not have vcpkg:
+```shell
+cd C:/
+git clone https://github.com/microsoft/vcpkg.git
+cd vcpkg; .\bootstrap-vcpkg.bat
+.\vcpkg.exe integrate install
+```
+
+```shell
+.\vcpkg install proxsuite
+```
+
 ## 2. Build the cpp-interface-proxqp from sources (Tested on MacOS ARM64 and Ubuntu {20.04LTS-64Bits, 22.04LTS-64Bits})
 
 
