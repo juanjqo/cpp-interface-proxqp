@@ -6,7 +6,11 @@ Interface between DQ_Robotics and [proxqp](https://github.com/Simple-Robotics/pr
 
 ## Prerequisites
 
-- DQ Robotics for C++ (master branch)
+- [DQ Robotics](https://github.com/dqrobotics/cpp) for C++
+- MacOS users require [Homebrew](https://brew.sh/)
+- Windows users require [vcpkg](https://vcpkg.io/en/index.html) (C:\vcpkg)
+
+### Example on Ubuntu: DQ Robotics for C++ (master branch)
 
   ```shell
   sudo add-apt-repository ppa:dqrobotics-dev/development
@@ -64,7 +68,20 @@ sudo make install
   cd ..
   sudo dpkg -i ./*.deb
 ```
+### Windows
 
+If you do not have vcpkg:
+
+```shell
+cd C:/
+git clone https://github.com/microsoft/vcpkg.git
+cd vcpkg; .\bootstrap-vcpkg.bat
+.\vcpkg.exe integrate install
+```
+
+```shell
+.\vcpkg install proxsuite
+```
 
 
 ### Example of use:
