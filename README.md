@@ -84,17 +84,14 @@ sudo make install
 ```
 ### Windows
 
-If you do not have vcpkg:
+Run powershell as administrator:
 
 ```shell
-cd C:/
-git clone https://github.com/microsoft/vcpkg.git
-cd vcpkg; .\bootstrap-vcpkg.bat
-.\vcpkg.exe integrate install
-```
-
-```shell
-.\vcpkg install proxsuite
+mkdir build
+cd build
+cmake ..
+cmake --build . --config Release
+cmake --install .
 ```
 
 
