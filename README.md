@@ -18,7 +18,7 @@ Interface between DQ_Robotics and [proxqp](https://github.com/Simple-Robotics/pr
   sudo apt-get install libdqrobotics
   ```
 
-### Ubuntu users
+### Ubuntu users (optional for -DBUILD_WITH_VECTORIZATION_SUPPORT=ON)
 
 ```shell
 sudo apt-get install libsimde-dev
