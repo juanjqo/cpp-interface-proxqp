@@ -18,6 +18,12 @@ Interface between DQ_Robotics and [proxqp](https://github.com/Simple-Robotics/pr
   sudo apt-get install libdqrobotics
   ```
 
+### Ubuntu users
+
+```shell
+sudo apt-get install libsimde-dev
+```
+
 ## 1. Recommended installation process for proxqp
 
 Check the official PROXSuite [instructions](https://github.com/Simple-Robotics/proxsuite/blob/main/doc/5-installation.md) 
