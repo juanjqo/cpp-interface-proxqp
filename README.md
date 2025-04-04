@@ -22,6 +22,7 @@ Interface between DQ_Robotics and [proxqp](https://github.com/Simple-Robotics/pr
 
 ```shell
 sudo apt-get install libsimde-dev
+sudo apt install libmatio-dev
 ```
 
 ## 1. Recommended installation process for proxqp
