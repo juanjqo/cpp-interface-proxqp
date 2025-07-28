@@ -194,5 +194,7 @@ include_directories(${EIGEN3_INCLUDE_DIR})
 add_executable(my_example main.cpp)
 
 target_link_libraries(my_example
-                      dqrobotics)
+                      dqrobotics
+                      proxsuite::proxsuite
+)
 ```
